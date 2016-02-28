@@ -36,11 +36,14 @@ function cont(){
 	$.ajax({
     url: "/resume",
     cache: false,
-  }).done(function( data ) {
-			Materialize.toast('Scan resumed!', 3000, 'rounded');
+    beforeSend : function(){
+    	Materialize.toast('Scan resumed!', 3000, 'rounded');
       $("#continue").addClass("hide");
       clearInterval(getPhoto);
       setInterval(getStatus, 5000);
+    }
+  }).done(function( data ) {
+			$("#continue").removeClass("hide");
   });
 }
 
@@ -73,7 +76,6 @@ function getStatus(){
         $("#progress").html( "Progress: " + data['current'][0] + "/" + data['settings'][0]);
 	frac = Math.round( 100 * (data['current'][0]*data['current'][1]*data['current'][2])/
                        (data['settings'][0]*data['settings'][1]*data['settings'][2]));
-	console.log(frac);
         $("#pbar").css("width", frac+"%");
       }else{ //Se sta aspettando
         $("#continue").removeClass("hide"); //Mostra continue
