@@ -1,10 +1,13 @@
-var loc = location.href;
-$( document ).ready(function() {
+var loc = location.href; $( document ).ready(function() {
      updateList();
      getStatus();
     setInterval(getStatus, 4000);
     setInterval(updateList, 15000);
 });
+
+function deleteFile(file){
+   console.log(file)
+}
 
 function downloadFile(file){
    $.ajax({
@@ -26,7 +29,8 @@ function updateList(){
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
           items.push('<li class="collection-item"><div>' + item + 
-          '<a class="dlZip secondary-content" data-file="'+item+'" onclick="downloadFile(\''+item+'\')" href="#"><i class="material-icons">file_download</i></a></div></li>');
+          '<div class="secondary-content"><a class="dlZip" onclick="downloadFile(\''+item+
+		'\')" href="#"><i class="material-icons">file_download</i></a><a href="#" onclick="deleteFile(\''+item+'\')" class="delete"><i class="material-icons">delete</i></a></div></div></li>');
    }); 
    $('#scans').html( items.join('') );
   });
