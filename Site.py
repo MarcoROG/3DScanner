@@ -84,16 +84,16 @@ def scanController(scan):
             return deleteScan(scan)
 
 def downloadScan(scan):
-    if not os.path.isdir('scans/'+scan):
+    if not os.path.isdir('static/scans/'+scan):
         return "No file found"
-    if not os.path.isfile('scans/' + scan + 'zip'):
-	zipdir('scans/'+scan,'scans/' + scan + '.zip')
-    return send_file('scans/'+scan+'.zip',mimetype='application/zip')
+    if not os.path.isfile('static/scans/' + scan + 'zip'):
+	zipdir('static/scans/'+scan,'static/scans/' + scan + '.zip')
+    return send_file('static/scans/'+scan+'.zip',mimetype='application/zip')
 
 def deleteScan(name):
-    os.system("sudo rm -rf scans/" + name)
+    os.system("sudo rm -rf static/scans/" + name)
     if os.path.isfile("scans/" + name + ".zip"):
-        os.system("sudo rm scans/" + name + ".zip")
+        os.system("sudo rm static/scans/" + name + ".zip")
     return "Scan deleted"
 
 def abortScan():
@@ -120,7 +120,7 @@ def status():
 
 def newDir():
     name = strftime("%Y-%m-%dat%H:%M:%S", gmtime())
-    os.makedirs("scans/"+name)
+    os.makedirs("static/scans/"+name)
     return name
 
 def Scan():
