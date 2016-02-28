@@ -30,7 +30,7 @@ function updateList(){
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
           items.push('<li class="collection-item"><div>' + item + 
-          '<a class="dl" data-file="'+file+'" href="#" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
+          '<a class="dl" data-file="'+item+'" href="#" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
    }); 
    $('#scans').html( items.join('') );
   });
