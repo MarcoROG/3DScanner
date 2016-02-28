@@ -37,6 +37,7 @@ function updateList(){
     cache: false,
   }).done(function( data ) {
    var items = [];
+   data['dirs'].sort();
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
           items.push('<li id="'+ item +'" class="collection-item"><div>' + item + 
