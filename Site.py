@@ -98,11 +98,12 @@ def abortScan():
     if workingOn == None:
         return "Nothing to abort"
     else:
-        workingOn = None
+        abortSignal = True    
 	scanning = False
         scanProgress = [0,0,0]
         scanSettings = (0,0,0)
-        abortSignal = True
+        workingOn = None
+        time.sleep(0.3)
         return "Scan aborted"
 
 @app.route('/status')
