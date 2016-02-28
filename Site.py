@@ -126,6 +126,7 @@ def Scan():
         scanProgress[1] = i
         for j in range(1, scanSettings[0]+1):
             if abortSignal:
+                    abortSignal = False
                     return
             #motor.MoveDegrees(360 / scanSettings[0])
 	    time.sleep(1.5)
