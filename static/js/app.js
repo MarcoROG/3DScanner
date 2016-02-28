@@ -3,6 +3,21 @@ $( document ).ready(function() {
     setInterval(getStatus, 4000);
 });
 
+function updateList(){
+   $.ajax({
+   	type: "delete",
+    url: "/scan",
+    cache: false,
+  }).done(function( data ) {
+   var items = [];
+   $.each(data['dirs'], function(i, item) {
+          items.push('<li class="collection-item"><div>' + item + 
+          '<a href="static/scans/'+ item +'.zip" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
+   }); 
+   $('#scans').append( items.join('') );
+  });
+}
+
 function start(){
   $("#form").addClass("hide");
   $("#status").removeClass("hide");

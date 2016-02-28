@@ -62,15 +62,13 @@ def resumeScan():
         if abortSignal:
                 abortSignal = False
                 return "Aborted"
-	if scanSettings[2] == scanProgress[2]:
-		return "Finished"
         return workingOn
     return "Scanner was not idling"
 
 @app.route('/scan',methods=['GET','DELETE'])
 def scanList():
     if request.method == 'GET':
-    	return jsonify({'dirs':subDirs('scans')})
+    	return jsonify({'dirs':subDirs('static/scans')})
     else:
 	return abortScan()
 
@@ -139,7 +137,7 @@ def Scan():
 		camera.resolution = (1024,768)
 		if abortSignal:
                     return
-            	camera.capture('scans/'+ workingOn +'/'+str(scanProgress[1])+ '-' + str(scanProgress[0]) + '.jpg')
+            	camera.capture('static/scans/'+ workingOn +'/'+str(scanProgress[1])+ '-' + str(scanProgress[0]) + '.jpg')
             time.sleep(0.6)
             scanProgress[0] = j
     scanning = False
