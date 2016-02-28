@@ -106,7 +106,6 @@ def abortScan():
         scanProgress = [0,0,0]
         scanSettings = (0,0,0)
         workingOn = None
-        time.sleep(0.3)
         return "Scan aborted"
 
 @app.route('/status')
@@ -129,13 +128,13 @@ def Scan():
     for i in range(1,scanSettings[1]+1):
         scanProgress[1] = i
         for j in range(1, scanSettings[0]+1):
-            if abortSignal:
-                    return
             #motor.MoveDegrees(360 / scanSettings[0])
 	    time.sleep(1.5)
             time.sleep(0.1)
 	    with picamera.PiCamera() as camera:
 		camera.resolution = (1024,768)
+		if abortSignal:
+                    return
             	camera.capture('scans/'+ workingOn +'/'+str(scanProgress[1])+ '-' + str(scanProgress[0]) + '.jpg')
             time.sleep(0.6)
             scanProgress[0] = j
