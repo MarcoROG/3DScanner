@@ -16,6 +16,7 @@ function start(){
     cache: false,
   }).done(function( data ) {
     $("#continue").removeClass("hide");
+    $("#progress").html("Scan just started");
   });
 }
 
@@ -33,15 +34,13 @@ function abort(){
 }
 
 function cont(){
+  Materialize.toast('Scan resumed!', 3000, 'rounded');
+  $("#continue").addClass("hide");
+  clearInterval(getPhoto);
+  setInterval(getStatus, 5000);
 	$.ajax({
     url: "/resume",
-    cache: false,
-    beforeSend : function(){
-    	Materialize.toast('Scan resumed!', 3000, 'rounded');
-      $("#continue").addClass("hide");
-      clearInterval(getPhoto);
-      setInterval(getStatus, 5000);
-    }
+    cache: false
   }).done(function( data ) {
 			$("#continue").removeClass("hide");
   });
