@@ -75,8 +75,8 @@ function getStatus(){
 	var prog = $("progress");
         $("#progress").html( "Progress: " + data['current'][0] + "/" + data['settings'][0]);
 	frac = Math.round( 100 * (data['current'][0]+
-  (data['settings'][0]*data['current'][1])+
-  (data['settings'][0]*data['settings'][1]*data['current'][2])/
+  (data['settings'][0]*(data['current'][1]-1)+
+  (data['settings'][0]*data['settings'][1]*(data['current'][2]-1)/
                        (data['settings'][0]*data['settings'][1]*data['settings'][2])));
         $("#pbar").css("width", frac+"%");
       }else{ //Se sta aspettando
