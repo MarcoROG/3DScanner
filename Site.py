@@ -101,7 +101,8 @@ def abortScan():
     if workingOn == None:
         return "Nothing to abort"
     else:
-        abortSignal = True    
+        if scanning:
+                abortSignal = True    
 	scanning = False
         scanProgress = [0,0,0]
         scanSettings = (0,0,0)
