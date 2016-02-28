@@ -62,6 +62,8 @@ def resumeScan():
         if abortSignal:
                 abortSignal = False
                 return "Aborted"
+	if scanSettings[2] == scanProgress[2]:
+		return "Finished"
         return workingOn
     return "Scanner was not idling"
 

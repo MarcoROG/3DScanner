@@ -45,6 +45,8 @@ function cont(){
         $("#form").removeClass("hide");
         $("#status").addClass("hide");
         clearInterval(getStatus);
+      } else if (data == "Finished"){
+	Materialize.toast('Scan completed!', 3000, 'rounded');
       }
   });
 }
@@ -79,11 +81,12 @@ function getStatus(){
       	$("#continue").removeClass("hide");
       }
       $("#progress").html( "Progress: " + data['current'][0] + "/" + data['settings'][0]);
-      var curr = data['current'][0] % data['settings'][0];
+      var curr = data['current'][0];
       var prevturns = (data['current'][1]-1 ) * data['settings'][0];	
       var prevlvls = (data['current'][2]-1) * data['settings'][0] * data['settings'][1];
       frac = Math.round( 100 *  (curr+prevturns+prevlvls)/
                         (data['settings'][0]*data['settings'][1]*data['settings'][2]));
+      console.log(curr+"|"+prevturns+"|"+prevlvls + " Tot: " +(curr+prevturns+prevlvls)+ " Frac: " + frac);
       $("#pbar").css("width", frac+"%");
     }	
   });
