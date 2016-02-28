@@ -27,11 +27,6 @@ function abort(){
    	type: "delete",
     url: "/scan",
     cache: false,
-  }).done(function( data ) {
-			Materialize.toast('Scan aborted!', 3000, 'rounded');
-        $("#form").removeClass("hide");
-        $("#status").addClass("hide");
-        clearInterval(getStatus);
   });
 }
 
@@ -45,6 +40,12 @@ function cont(){
     cache: false
   }).done(function( data ) {
 			$("#continue").removeClass("hide");
+      if (data == "Aborted"){
+      	Materialize.toast('Scan aborted!', 3000, 'rounded');
+        $("#form").removeClass("hide");
+        $("#status").addClass("hide");
+        clearInterval(getStatus);
+      }
   });
 }
 
