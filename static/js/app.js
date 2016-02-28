@@ -12,7 +12,10 @@ function deleteFile(file){
     cache: false,
   }).done(function( data ) {
    	Materialize.toast('Content removed!', 3000, 'rounded');
-    $("#"+file).remove();
+    var name = "#" + file;
+    var element = $(name);
+    element.hide();
+    element.remove();
   });
 }
 
