@@ -120,6 +120,7 @@ def newDir():
 def Scan():
     global workingOn, scanSettings, scanProgress, motor,scanning
     scanning = True
+    scanProgress[2] = scanProgress[2] + 1
     for i in range(1,scanSettings[1]+1):
         scanProgress[1] = i
         for j in range(1, scanSettings[0]+1):
@@ -132,7 +133,6 @@ def Scan():
             time.sleep(0.6)
             scanProgress[0] = j
             
-    scanProgress[2] = scanProgress[2] + 1
     scanning = False
     if scanProgress[2] == scanSettings[2]:
         workingOn = None
