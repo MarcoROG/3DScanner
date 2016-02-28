@@ -12,8 +12,8 @@ function deleteFile(file){
     cache: false,
   }).done(function( data ) {
    	Materialize.toast('Content removed!', 3000, 'rounded');
-    var name = "#" + file;
-    var element = $(name);
+    var element = $('*[data-name="'+file+'"]');
+    element.css("background-color","red")
     element.hide();
     element.remove();
   });
@@ -40,7 +40,7 @@ function updateList(){
    data['dirs'].sort().reverse();
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
-          items.push('<li id="'+ item +'" class="collection-item"><div>' + item + 
+          items.push('<li data-name="'+ item +'" class="collection-item"><div>' + item + 
           '<div class="secondary-content"><a onclick="downloadFile(\''+item+
 		'\')" href="#"><i class="material-icons">file_download</i></a><a href="#" onclick="deleteFile(\''+item+'\')"><i class="material-icons">delete</i></a></div></div></li>');
    }); 
