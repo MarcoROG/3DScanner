@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>3D Scanner</title>
+		<link rel="stylesheet" href="{{url_for('static',filename='css/materialize.min.css')}}">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="{{url_for('static',filename='js/materialize.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/jquery-2.2.1.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/app.js')}}"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="card-panel z-depth-2">
+				<div class="row">
+					<div class="col s10 offset-s1" align="center">
+						<h2>3D Scanner</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l8 s12">
+						<div id="status" class="row">
+							<div class="col s10 offset-s1">
+								<h4>Status</h4>
+								<div class="row">
+									<div class="col s10 offset-s1">
+										<p id="progress">Status is unknown</p>
+										<div class="progress">
+											<div id="pbar" class="detrminate" style="width: 0%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col offset-s1 s4">
+										<form method="POST" action="/scan">
+											<input type="hidden" name="_method" value="DELETE" />
+											<a id="abort" onclick="abort()" class="waves-effect waves-light btn red">ABORT</a>
+										</form>
+									</div>
+									<div class="col offset-s1 offset-m1 offset-l2 s4">
+										<a id="continue" onclick="cont()" class="waves-effect waves-light btn">Continue scan</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s10 offset-s1">
+										<img id="image" src="static/Photo.jpg">
+									</div>
+								</div>
+							</div>
+						</div> 
+						<div id="form" class="row">
+							<div class="col s10 offset-s1">
+								<h4>Start a new scan</h4>
+								<form method="POST" action="/start">
+									<div class="row">
+										<div class="col s10 offset-s1 input-field">
+											<input type="number" id="ppt"  name="ppt" min="1" max="60" value="18">
+											<label for="ppt">Photos per turn</label>
+										</div>
+										<div class="col s10 offset-s1 input-field">
+                                                                                        <input type="number" id="tpl"  name="tpl" min="1" max="3" value="1">
+                                                                                        <label for="ppt">Turns per level</label>
+                                                                                </div>
+										<div class="col s10 offset-s1 input-field">
+                                                                                        <input type="number" id="lev"  name="lev" min="1" max="7" value="3">
+                                                                                        <label for="ppt">Levels</label>
+                                                                                </div>
+									</div>
+									<a id="start" onclick="start()" class="btn waves-effect waves-light" >Start
+									    <i class="material-icons right">send</i>
+  									</a>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col l4 s12">
+						<div id="collections" class="row">
+							<div class="col s10 offset-s1">
+								<ul id="scans" class="collection-with-header>
+									<li class="collection-header"><h4>Scans</h4></li>
+								</ul>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
