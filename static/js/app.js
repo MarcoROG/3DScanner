@@ -122,8 +122,11 @@ function getStatus(){
       $("#form").addClass("hide"); //Nascondi form
       if(data['scanning']){
       	$("#continue").addClass("hide");
+	$("#image").addClass("hide")
       }else{
       	$("#continue").removeClass("hide");
+	$("#image").removeClass("hide");
+	getPhoto();
       }
       $("#progress").html( "Progress: " + data['current'][0] + "/" + data['settings'][0]);
       var curr = data['current'][0];

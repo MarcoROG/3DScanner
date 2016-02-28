@@ -27,18 +27,17 @@ motor = Motor(11,15,13,16,200)
 def index():
 	return render_template('index.html')
 
-def gen():
+@app.route('/takePhoto')
+def takePhoto():
         global workingOn, scanning
-        with picamera.PiCamera() as camera:
-            while workingOn != None and scanning == False:
-                frame = camera.get_frame()
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+        if workingOn != None and scanning == False:
+		with picamera.PiCamera() as camera:
+			camera.resolution = (480,320)
+			time.sleep(0.2)
+	        	camera.capture('static/Photo.jpg')
+                return "Success"
+	else:
+		return abort(403)
 
 
 @app.route('/start',methods=['POST'])
