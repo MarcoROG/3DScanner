@@ -55,7 +55,6 @@ function getPhoto(){
 }
 
 function getStatus(){
-  console.log("tick");
   $.ajax({
     url: "/status",
     cache: false
@@ -70,10 +69,12 @@ function getStatus(){
       $("#status").removeClass("hide"); //Mostra stato
       $("#form").addClass("hide"); //Nascondi form
       if(data['scanning']){ //Se sta facendo lo scan fai l'update di tutto
-        $("#progress").html = "Progress: " + data['current'][0] + "/" + data['settings'][0];
-        $("#pbar").css("width",
-                       (data['current'][0]*data['current'][1]*data['current'][2])/
-                       (data['settings'][0]*data['settings'][1]*data['settings'][2])+"%");
+	var prog = $("progress");
+        $("#progress").html( "Progress: " + data['current'][0] + "/" + data['settings'][0]);
+	frac = 100 * (data['current'][0]*data['current'][1]*data['current'][2])/
+                       (data['settings'][0]*data['settings'][1]*data['settings'][2]);
+	console.log(frac);
+        $("#pbar").css("width", frac+"%");
       }else{ //Se sta aspettando
         $("#continue").removeClass("hide"); //Mostra continue
         //getPhoto();
