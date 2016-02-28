@@ -129,8 +129,7 @@ def Scan():
     for i in range(1,scanSettings[1]+1):
         scanProgress[1] = i
         for j in range(1, scanSettings[0]+1):
-            #motor.MoveDegrees(360 / scanSettings[0])
-	    time.sleep(1.5)
+            motor.MoveDegrees(360 / scanSettings[0])
             time.sleep(0.1)
 	    with picamera.PiCamera() as camera:
 		camera.resolution = (1024,768)
