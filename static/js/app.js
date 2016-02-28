@@ -5,7 +5,7 @@ $( document ).ready(function() {
 
 function updateList(){
    $.ajax({
-   	type: "delete",
+   	type: "get",
     url: "/scan",
     cache: false,
   }).done(function( data ) {
