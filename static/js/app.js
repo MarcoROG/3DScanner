@@ -1,11 +1,7 @@
-
+var loc = location.href;
 $( document ).ready(function() {
-		$(".dl").click(function(event){
-    	event.preventDefault();
-      downloadFile($this.data("file"));
-    });
-		getStatus();
-    updateList();
+     updateList();
+     getStatus();
     setInterval(getStatus, 4000);
     setInterval(updateList, 15000);
 });
@@ -16,7 +12,7 @@ function downloadFile(file){
     url: "/scan/"+file,
     cache: false,
   }).done(function( data ) {
-   location.href += '/static/scans/'+file+'.zip';
+   location.href = '/static/scans/'+file+'.zip';
   });
 }
 
@@ -30,7 +26,7 @@ function updateList(){
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
           items.push('<li class="collection-item"><div>' + item + 
-          '<a class="dl" data-file="'+item+'" href="#" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
+          '<a class="dlZip secondary-content" data-file="'+item+'" onclick="downloadFile(\''+item+'\')" href="#"><i class="material-icons">file_download</i></a></div></li>');
    }); 
    $('#scans').html( items.join('') );
   });
