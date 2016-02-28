@@ -5,6 +5,7 @@ $( document ).ready(function() {
 function start(){
   $("#form").addClass("hide");
   $("#status").removeClass("hide");
+  $("#pbar").css("width", "0%");
   $.ajax({
    	type: "POST",
     url: "/start",
@@ -77,9 +78,9 @@ function getStatus(){
                        (data['settings'][0]*data['settings'][1]*data['settings'][2]));
         $("#pbar").css("width", frac+"%");
       }else{ //Se sta aspettando
-        $("#continue").removeClass("hide"); //Mostra continue
+        //$("#continue").removeClass("hide"); //Mostra continue
         //getPhoto();
-        clearInterval(getStatus); //Non mostrare lo stato
+        //clearInterval(getStatus); //Non mostrare lo stato
       }
     }	
   });
