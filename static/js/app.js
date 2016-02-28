@@ -1,7 +1,24 @@
+
 $( document ).ready(function() {
+		$(".dl").click(function(event){
+    	event.preventDefault();
+      downloadFile($this.data("file"));
+    });
 		getStatus();
+    updateList();
     setInterval(getStatus, 4000);
+    setInterval(updateList, 15000);
 });
+
+function downloadFile(file){
+   $.ajax({
+   	type: "get",
+    url: "/scan/"+file,
+    cache: false,
+  }).done(function( data ) {
+   location.href += '/static/scans/'+file+'.zip';
+  });
+}
 
 function updateList(){
    $.ajax({
@@ -10,11 +27,12 @@ function updateList(){
     cache: false,
   }).done(function( data ) {
    var items = [];
+   items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
           items.push('<li class="collection-item"><div>' + item + 
-          '<a href="static/scans/'+ item +'.zip" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
+          '<a class="dl" data-file="'+file+'" href="#" class="secondary-content"><i class="material-icons">file_download</i></a></div></li>');
    }); 
-   $('#scans').append( items.join('') );
+   $('#scans').html( items.join('') );
   });
 }
 
