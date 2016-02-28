@@ -6,7 +6,14 @@ var loc = location.href; $( document ).ready(function() {
 });
 
 function deleteFile(file){
-   console.log(file)
+  $.ajax({
+   	type: "delete",
+    url: "/scan/"+file,
+    cache: false,
+  }).done(function( data ) {
+   	Materialize.toast('Content removed!', 3000, 'rounded');
+    $("#"+file).remove();
+  });
 }
 
 function downloadFile(file){
@@ -16,6 +23,7 @@ function downloadFile(file){
     cache: false,
   }).done(function( data ) {
    location.href = '/static/scans/'+file+'.zip';
+   
   });
 }
 
@@ -28,9 +36,9 @@ function updateList(){
    var items = [];
    items.push('<li class="collection-header"><h4>Scans</h4></li>');
    $.each(data['dirs'], function(i, item) {
-          items.push('<li class="collection-item"><div>' + item + 
-          '<div class="secondary-content"><a class="dlZip" onclick="downloadFile(\''+item+
-		'\')" href="#"><i class="material-icons">file_download</i></a><a href="#" onclick="deleteFile(\''+item+'\')" class="delete"><i class="material-icons">delete</i></a></div></div></li>');
+          items.push('<li id="'+ item +'" class="collection-item"><div>' + item + 
+          '<div class="secondary-content"><a onclick="downloadFile(\''+item+
+		'\')" href="#"><i class="material-icons">file_download</i></a><a href="#" onclick="deleteFile(\''+item+'\')"><i class="material-icons">delete</i></a></div></div></li>');
    }); 
    $('#scans').html( items.join('') );
   });
