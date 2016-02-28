@@ -13,11 +13,12 @@ from Motor import Motor
 app = Flask(__name__)
 
 global motor
-global workingOn, scanSettings, scanProgress, scanning
+global workingOn, scanSettings, scanProgress, scanning, abortSignal
 GPIO.setmode(GPIO.BOARD)
 
 workingOn = None #Set to the datetime of the scan
 scanning = False
+abortSignal = False
 scanSettings = (0,0,0) #Photos per turn, turns, level
 scanProgress = [0,0,0] #Current photo, current turn current level
 motor = Motor(11,15,13,16,200)
@@ -93,7 +94,7 @@ def deleteScan(name):
     return "Scan deleted"
 
 def abortScan():
-    global workingOn, scanSettings, scanProgress, scanning
+    global workingOn, scanSettings, scanProgress, scanning, abortSignal
     if workingOn == None:
         return "Nothing to abort"
     else:
@@ -101,6 +102,7 @@ def abortScan():
 	scanning = False
         scanProgress = [0,0,0]
         scanSettings = (0,0,0)
+        abortSignal = True
         return "Scan aborted"
 
 @app.route('/status')
@@ -118,12 +120,13 @@ def newDir():
     return name
 
 def Scan():
-    global workingOn, scanSettings, scanProgress, motor,scanning
+    global workingOn, scanSettings, scanProgress, motor,scanning,abortSignal
     scanning = True
-    scanProgress[2] = scanProgress[2] + 1
     for i in range(1,scanSettings[1]+1):
         scanProgress[1] = i
         for j in range(1, scanSettings[0]+1):
+            if abortSignal:
+                    return
             #motor.MoveDegrees(360 / scanSettings[0])
 	    time.sleep(1.5)
             time.sleep(0.1)
@@ -133,6 +136,7 @@ def Scan():
             time.sleep(0.6)
             scanProgress[0] = j
             
+    scanProgress[2] = scanProgress[2] + 1
     scanning = False
     if scanProgress[2] == scanSettings[2]:
         workingOn = None
