@@ -4,6 +4,6 @@ A Python and Flask implementation of a Web UI that lets you take photos of an ob
 
 # Installation
 Download and write to an SD card the image in the "releases" section. Expand the filesystem. Connect to the interface from your browser by typing your RaspBerry's IP in your URL bar.
-Otherwise clone this repository on your Raspbian install and add the provided python file to the startup schedule.
+Otherwise clone this repository on your Raspbian install and add the provided python file to the startup schedule using the provided bash file (addToStartup.sh).
 
 The project was published on the magazine "Elettronica In"
