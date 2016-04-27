@@ -21,7 +21,7 @@ scanning = False
 abortSignal = False
 scanSettings = (0,0,0) #Photos per turn, turns, level
 scanProgress = [0,0,0] #Current photo, current turn current level
-motor = Motor(18,17,4,32,200)
+motor = Motor(12,11,7,32,200)
 
 @app.route('/')
 def index():
@@ -133,9 +133,15 @@ def Scan():
             time.sleep(0.1)
 	    with picamera.PiCamera() as camera:
 		camera.resolution = (1024,768)
-		if abortSignal:
-                    return
-            	camera.capture('static/scans/'+ workingOn +'/'+str(scanProgress[1])+ '-' + str(scanProgress[0]) + '.jpg')
+		done = False
+		while not done:
+		     if abortSignal:
+                    	return
+		     try:
+            	     	camera.capture('static/scans/'+ workingOn +'/'+str(scanProgress[1])+ '-' + str(scanProgress[0]) + '.jpg')
+			done = True
+		     except:
+			pass
             time.sleep(0.6)
             scanProgress[0] = j
     scanning = False
