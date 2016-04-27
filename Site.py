@@ -21,7 +21,7 @@ scanning = False
 abortSignal = False
 scanSettings = (0,0,0) #Photos per turn, turns, level
 scanProgress = [0,0,0] #Current photo, current turn current level
-motor = Motor(11,15,13,16,200)
+motor = Motor(18,17,4,32,200)
 
 @app.route('/')
 def index():
